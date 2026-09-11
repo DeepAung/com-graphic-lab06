@@ -36,6 +36,7 @@ struct Params {
   glm::mat4 mvp;
   std::uint32_t costLoops;
   std::uint32_t stripeWidth;
+  std::byte padding[8];
 };
 
 static_assert(sizeof(Params) == 80,
