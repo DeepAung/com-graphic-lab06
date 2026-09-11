@@ -57,7 +57,7 @@ std::vector<std::uint8_t> uniformBlock(std::uint32_t costLoops,
 PipelineState pipelineState(Variant v) {
   PipelineState s{};
   s.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-  s.cullMode = VK_CULL_MODE_FRONT_BIT;
+  s.cullMode = VK_CULL_MODE_BACK_BIT;
   s.depthCompare = VK_COMPARE_OP_GREATER;
   s.depthWrite = true;
   s.fragShader = s.depthWrite ? "earlyz_b.frag" : "earlyz_a.frag";
