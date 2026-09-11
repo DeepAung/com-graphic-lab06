@@ -59,7 +59,7 @@ PipelineState pipelineState(Variant v) {
   s.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
   s.cullMode = VK_CULL_MODE_FRONT_BIT;
   s.depthCompare = VK_COMPARE_OP_GREATER;
-  s.depthWrite = (v == WriteDepthFrontToBack || v == WriteDepthBackToFront);
+  s.depthWrite = true;
   s.fragShader = s.depthWrite ? "earlyz_b.frag" : "earlyz_a.frag";
   s.drawOrder = (v == EarlyZFrontToBack || v == WriteDepthFrontToBack) ? DrawOrder::FrontToBack : DrawOrder::BackToFront;
   return s;
