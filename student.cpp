@@ -33,8 +33,9 @@ std::vector<VkVertexInputAttributeDescription> Vertex::attributeDescriptions() {
 }
 
 struct Params {
-  std::uint32_t placeholder[20];  // TODO(TASK 2a): replace with three std140
-                                  // members, padded
+  glm::mat4 mvp;
+  std::uint32_t costLoops;
+  std::uint32_t stripeWidth;
 };
 
 static_assert(sizeof(Params) == 80,
@@ -43,7 +44,9 @@ static_assert(sizeof(Params) == 80,
 std::vector<std::uint8_t> uniformBlock(std::uint32_t costLoops,
                                        std::uint32_t stripeWidth) {
   Params params{};
-  // TODO(TASK 2b): an identity matrix, and the two knobs passed through.
+  params.mvp = glm::mat4(1.0f);
+  params.costLoops = costLoops;
+  params.stripeWidth = stripeWidth;
 
   std::vector<std::uint8_t> bytes(sizeof(Params));
   std::memcpy(bytes.data(), &params, sizeof(Params));
