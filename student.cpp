@@ -66,11 +66,15 @@ PipelineState pipelineState(Variant v) {
 }
 
 const std::vector<Vertex> QUAD = {
-    // TODO(TASK 4a): four corners. Check values are in Part V of the handout.
+    { {-1.0, -1.0}, {0.0, 0.0, 0.0} },
+    { {-1.0, 1.0},  {0.0, 0.0, 0.0} },
+    { {1.0, -1.0},  {0.0, 0.0, 0.0} },
+    { {1.0, 1.0},   {0.0, 0.0, 0.0} },
 };
 
 const std::vector<std::uint16_t> QUAD_INDICES = {
-    // TODO(TASK 4b): six indices, two triangles, both wound like TASK 1a.
+    0, 1, 2,
+    2, 1, 3,
 };
 
 std::vector<glm::mat4> instanceBuffer() {
