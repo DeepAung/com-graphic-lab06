@@ -56,12 +56,12 @@ std::vector<std::uint8_t> uniformBlock(std::uint32_t costLoops,
 
 PipelineState pipelineState(Variant v) {
   PipelineState s{};
-  // TODO(TASK 3a): match the winding you chose in TASK 1a
-  // TODO(TASK 3b): cull back faces
-  // TODO(TASK 3c): depth compare, using Lab 05's reversed-Z convention
-  // TODO(TASK 3d): should this pipeline write depth?
-  // TODO(TASK 3e): "earlyz_a.frag" or "earlyz_b.frag", chosen from v
-  // TODO(TASK 3f): DrawOrder::FrontToBack or ::BackToFront, chosen from v
+  s.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+  s.cullMode = VK_CULL_MODE_FRONT_BIT;
+  s.depthCompare = VK_COMPARE_OP_GREATER;
+  s.depthWrite = (v == WriteDepthFrontToBack || v == WriteDepthBackToFront);
+  s.fragShader = s.depthWrite ? "earlyz_b.frag" : "earlyz_a.frag";
+  s.drawOrder = (v == EarlyZFrontToBack || v == WriteDepthFrontToBack) ? DrawOrder::FrontToBack : DrawOrder::BackToFront;
   return s;
 }
 
