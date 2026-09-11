@@ -3,22 +3,33 @@
 #include <cstring>
 
 const std::vector<Vertex> TRIANGLE = {
-    // TODO(TASK 1a): three vertices. Check values are in Part I of the handout.
+    { {0.0, -0.5}, {1.0, 0.0, 0.0} },
+    { {-0.5, 0.5}, {0.0, 1.0, 0.0} },
+    { {0.5, 0.5},  {0.0, 0.0, 1.0} },
 };
 
 VkVertexInputBindingDescription Vertex::bindingDescription() {
   VkVertexInputBindingDescription desc{};
   desc.binding = 0;
   desc.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-  desc.stride =
-      0;  // TODO(TASK 1b): how many bytes from one vertex to the next?
+  desc.stride = 20;
   return desc;
 }
 
 std::vector<VkVertexInputAttributeDescription> Vertex::attributeDescriptions() {
-  // TODO(TASK 1c): two attributes. Each needs binding, location, format and
-  // offset.
-  return {};
+  VkVertexInputAttributeDescription pos{};
+  pos.binding = 0;
+  pos.location = 0;
+  pos.format = VK_FORMAT_R32G32_SFLOAT;
+  pos.offset = 0;
+
+  VkVertexInputAttributeDescription color{};
+  color.binding = 0;
+  color.location = 1;
+  color.format = VK_FORMAT_R32G32B32_SFLOAT;
+  color.offset = 8;
+
+  return { pos, color };
 }
 
 struct Params {
