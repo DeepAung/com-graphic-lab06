@@ -61,7 +61,7 @@ PipelineState pipelineState(Variant v) {
   s.depthCompare = VK_COMPARE_OP_GREATER;
   s.depthWrite = true;
   s.fragShader = s.depthWrite ? "earlyz_b.frag" : "earlyz_a.frag";
-  s.drawOrder = (v == EarlyZFrontToBack || v == WriteDepthFrontToBack) ? DrawOrder::FrontToBack : DrawOrder::BackToFront;
+  s.drawOrder = (v == Variant::EarlyZFrontToBack || v == Variant::WriteDepthFrontToBack) ? DrawOrder::FrontToBack : DrawOrder::BackToFront;
   return s;
 }
 
