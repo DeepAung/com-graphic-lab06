@@ -1,6 +1,9 @@
 #include "utils/Student.h"
 
+#include <cmath>
 #include <cstring>
+
+#include <glm/gtc/matrix_transform.hpp>
 
 const std::vector<Vertex> TRIANGLE = {
     { {0.0, -0.5}, {1.0, 0.0, 0.0} },
@@ -79,10 +82,26 @@ const std::vector<std::uint16_t> QUAD_INDICES = {
 };
 
 std::vector<glm::mat4> instanceBuffer() {
-  // TODO(TASK 5a): INSTANCES transforms, glm::translate and glm::scale.
-  return {};
+  std::vector<glm::mat4> transforms;
+  transforms.reserve(INSTANCES);
+
+  std::uint32_t cols = static_cast<std::uint32_t>(std::ceil(std::sqrt(static_cast<float>(INSTANCES))));
+  std::uint32_t rows = (INSTANCES + cols - 1) / cols;
+
+  for (std::uint32_t i = 0; i < INSTANCES; i++) {
+    float cellX = static_cast<float>(i % cols);
+    float cellY = static_cast<float>(i / cols);
+    float x = (cellX + 0.5f) / static_cast<float>(cols) * 2.0f - 1.0f;
+    float y = (cellY + 0.5f) / static_cast<float>(rows) * 2.0f - 1.0f;
+
+    glm::mat4 m = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, 0.0f));
+    m = glm::scale(m, glm::vec3(1.0f / static_cast<float>(cols), 1.0f / static_cast<float>(rows), 1.0f));
+    transforms.push_back(m);
+  }
+
+  return transforms;
 }
 
 void recordDraw(VkCommandBuffer cmd, std::uint32_t indexCount) {
-  // TODO(TASK 5b): one vkCmdDrawIndexed, with an instance count.
+  vkCmdDrawIndexed(cmd, indexCount, INSTANCES, 0, 0, 0);
 }
